@@ -1,0 +1,35 @@
+﻿@page "/learnBlazor/parentComponent"
+
+<h3>Parent Component</h3>
+
+<CascadingValue Value="@strMessageForGrandChildTemp" Name="Message">
+    <CascadingValue Value="@strLuckyNumberTemp" Name="LuckyNumber">
+        <_ChildComponent Title="This title is pass as a parameter from Parent Component."
+        OnButtonClick="ShowMessage"
+        OnClearButtonClick="ClearMessage">
+
+            @* Some text/data in between the tags. This data can be fetched by default ChildContent(RenderFragment) without any tag. *@
+            <ChildContent> Some text/data in between the tags through ChildContent(RenderFragment). </ChildContent>
+            <ChildOtherContent> Some text/data in between the tags through ChildOtherContent(RenderFragment). </ChildOtherContent>
+        </_ChildComponent>
+    </CascadingValue>
+</CascadingValue>
+
+<p> @MessageText </p>
+
+
+@code {
+    public string MessageText = string.Empty;
+    private string strMessageForGrandChildTemp = "This message is passed from Parent to Grnad Child.";
+    private string strLuckyNumberTemp = "28";
+
+    private void ShowMessage()
+    {
+        MessageText = "Button inside child component is clicked.";
+    }
+
+    private void ClearMessage()
+    {
+        MessageText = "";
+    }
+}

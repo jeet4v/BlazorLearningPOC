@@ -1,0 +1,68 @@
+﻿@page "/learnBlazor/demoproduct"
+
+<h2 class="text-primary">Demo Product</h2>
+Favorite Counts: @FavoriteCounter <br />
+Selected Product Name: @SelectedProductName
+<div class="p-2 mt-2">
+    <div class="row">
+        @foreach(var prod in productList)
+        {
+            <_IndividualProduct product="@prod" 
+                OnFavoriteUpdated="FavoriteCountChange"
+                OnSelectedProductNameUpdated="SelectedProductNameChange">
+            
+            </_IndividualProduct>
+        }
+    </div>
+</div>
+
+@code {
+    List<Product> productList = new();
+    public int FavoriteCounter { get; set; } = 0;
+    public string SelectedProductName { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        productList.Add(new()
+            {
+                ID = 1,
+                Name = "Midnight Blaze",
+                IsActive = false,
+                Price = 5.99,
+                ProductProperties = new List<ProductProp>()
+                {
+                    new ProductProp { ID = 1, Key = "Flavor", Value = "Rose"},
+                    new ProductProp { ID = 2, Key = "Size", Value = "20oz"},
+                    new ProductProp { ID = 3, Key = "Color", Value="Purple" }
+                }
+            });
+
+        productList.Add(new()
+            {
+                ID = 2,
+                Name = "Blossom Lily",
+                IsActive = true,
+                Price = 10.59,
+                ProductProperties = new List<ProductProp>()
+                {
+                    new ProductProp { ID = 1, Key = "Flavor", Value = "Lily" },
+                    new ProductProp { ID = 2, Key = "Size", Value = "18oz" },
+                    new ProductProp {ID = 3,Key = "Color",Value = "White"}
+                }
+            });
+    }
+
+    protected void FavoriteCountChange(bool isChecked)
+    {
+        if (isChecked)
+            FavoriteCounter++;
+        else
+            FavoriteCounter--;
+    }
+
+    protected void SelectedProductNameChange(string strName)
+    {
+        SelectedProductName = strName;
+    }
+
+}

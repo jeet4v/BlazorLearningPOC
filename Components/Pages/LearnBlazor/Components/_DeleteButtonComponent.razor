@@ -1,0 +1,9 @@
+﻿<input type="button" class="btn btn-danger" value="Delete: @ProductName - @ProductId" />
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [Parameter]
+    public string? ProductName { get; set; }
+}

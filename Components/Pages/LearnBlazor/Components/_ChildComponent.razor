@@ -1,0 +1,38 @@
+﻿<div>
+    <div class="alert alert-info">
+        @Title
+    </div>
+
+    @if (ChildContent != null)
+    {
+        <div class="alert alert-success">
+            @ChildContent
+            <br />
+            @ChildOtherContent
+    </div>
+    }
+
+    @* <input type="button" value="Click Button" @onclick="OnButtonClick" /> *@
+
+    <button class="btn btn-danger" @onclick="OnButtonClick">Click me</button>
+    <button class="btn btn-success" @onclick="OnClearButtonClick">Clear the data</button>
+
+    <_GrandChildComponent></_GrandChildComponent>
+
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment ChildOtherContent { get; set; }
+
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
+
+    [Parameter]
+    public EventCallback OnClearButtonClick { get; set; }
+}
