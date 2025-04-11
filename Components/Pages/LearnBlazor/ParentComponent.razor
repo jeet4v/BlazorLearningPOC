@@ -4,7 +4,7 @@
 
 <CascadingValue Value="@strMessageForGrandChildTemp" Name="Message">
     <CascadingValue Value="@strLuckyNumberTemp" Name="LuckyNumber">
-        <_ChildComponent Title="This title is pass as a parameter from Parent Component."
+        <_ChildComponent @ref="childComponent" Title="This title is pass as a parameter from Parent Component."
         OnButtonClick="ShowMessage"
         OnClearButtonClick="ClearMessage">
 
@@ -17,8 +17,12 @@
 
 <p> @MessageText </p>
 
+<div class="row">
+    <button class="btn btn-success m-2" style="width: 200px;" @onclick="() => childComponent.ToasterSuccess()">Success Message (Calling child's method)</button>
+</div>
 
 @code {
+    private _ChildComponent childComponent;
     public string MessageText = string.Empty;
     private string strMessageForGrandChildTemp = "This message is passed from Parent to Grnad Child.";
     private string strLuckyNumberTemp = "28";
@@ -32,4 +36,7 @@
     {
         MessageText = "";
     }
+
+
+
 }

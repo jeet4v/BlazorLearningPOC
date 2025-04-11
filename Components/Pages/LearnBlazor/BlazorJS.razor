@@ -1,0 +1,64 @@
+﻿@page "/BlazorJS"
+@inject IJSRuntime _jsRuntime
+
+<h3>Blazor JS</h3>
+
+<div class="row">
+    <button class="btn btn-success" @onclick="TestConfirmBox">Click here to confirm</button>
+</div>
+
+<div class="row">
+    @if(ConfirmResult)
+    {
+        <h5>Confirmed . . . </h5>
+    }
+    else
+    {
+        <h5>Not Confirmed . . . </h5>
+    }
+</div>
+
+
+<div class="row">
+    <button class="btn btn-success m-2" style="width: 200px;" @onclick="ToasterSuccess">Success Message</button>
+    <button class="btn btn-danger m-2" style="width: 200px;" @onclick="ToasterError">Error Message</button>
+</div>
+
+<div class="row">
+    <button class="btn btn-success m-2" style="width: 200px;" @onclick="SweetalertSuccess">Sweetalert - Success Message</button>
+    <button class="btn btn-danger m-2" style="width: 200px;" @onclick="SweetalertError">Sweetalert - Error Message</button>
+</div>
+
+@code {
+    private string strConfirmMessage = "Are you sure you want to confirm this?";
+    private bool ConfirmResult { get; set; }
+
+    private async Task TestConfirmBox()
+    {
+        ConfirmResult = await _jsRuntime.InvokeAsync<bool>("confirm", strConfirmMessage);
+    }
+
+    private async Task ToasterSuccess()
+    {
+        //await _jsRuntime.InvokeVoidAsync("showToastr", "success", "Displaying Success Message");
+        await _jsRuntime.ToastrSuccess("Displaying Success Message");
+    }
+
+    private async Task ToasterError()
+    {
+        //await _jsRuntime.InvokeVoidAsync("showToastr", "error", "Displaying Error Message");
+        await _jsRuntime.ToastrError("Displaying Error Message");
+    }
+
+    private async Task SweetalertSuccess()
+    {
+        await _jsRuntime.InvokeVoidAsync("showSweetalert", "success", "Displaying Success Message");
+        //await _jsRuntime.ToastrSuccess("Displaying Success Message");
+    }
+
+    private async Task SweetalertError()
+    {
+        await _jsRuntime.InvokeVoidAsync("showSweetalert", "error", "Displaying Error Message");
+        //await _jsRuntime.ToastrError("Displaying Error Message");
+    }
+}

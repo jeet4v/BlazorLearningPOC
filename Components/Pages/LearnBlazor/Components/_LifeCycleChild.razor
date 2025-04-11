@@ -1,0 +1,26 @@
+﻿<h3> Life Cycle Child</h3>
+
+<div class="row">
+    @foreach (var eventType in EventTypeChild)
+    {
+        <p>@eventType</p>
+        <hr />
+    }
+</div>
+
+@code {
+    private List<string> EventTypeChild = new List<string>();
+    [Parameter]
+    public int currentCount { get; set; } = 0;
+
+    protected override void OnInitialized()
+    {
+        EventTypeChild.Add("OnInitialized - CHILD");
+    }
+
+    protected override void OnParametersSet()
+    {
+        EventTypeChild.Add("OnParametersSet - CHILD");
+    }
+
+}

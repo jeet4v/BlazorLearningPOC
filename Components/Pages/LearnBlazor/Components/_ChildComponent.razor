@@ -1,4 +1,6 @@
-﻿<div>
+﻿@inject IJSRuntime _jsRuntime
+
+<div>
     <div class="alert alert-info">
         @Title
     </div>
@@ -35,4 +37,11 @@
 
     [Parameter]
     public EventCallback OnClearButtonClick { get; set; }
+
+    public async Task ToasterSuccess()
+    {
+        //await _jsRuntime.InvokeVoidAsync("showToastr", "success", "Displaying Success Message");
+        await _jsRuntime.ToastrSuccess("Displaying Success Message");
+    }
+
 }
